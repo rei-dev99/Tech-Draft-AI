@@ -1,5 +1,5 @@
-<header class="fixed top-0 p-4 md:p-6 text-[#333333] shadow-md w-full z-10">
-    <div class="flex justify-between items-center bg-[#0078D7] p-4 md:p-6 rounded-lg font-bold">
+<header class="fixed top-0 p-4 md:p-6 text-[#333333] w-full z-10">
+    <div class="flex justify-between items-center bg-[#0078D7] shadow-md p-4 md:p-6 rounded-lg font-bold">
         <h1><a class="text-3xl text-white hover:text-[#00BFFF]" href="{{ route('top') }}">Tech Draft AI</a></h1>
         <nav>
             <ul class="flex items-center gap-6">
