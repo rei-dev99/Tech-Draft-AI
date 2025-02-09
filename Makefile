@@ -16,3 +16,8 @@ cache:
 	php artisan config:cache
 mysql:
 	mysql -h 127.0.0.1 -P 3306 -u user -ppassword
+app_route:
+	docker compose exec app bash
+	php artisan route:list > route.txt
+route:
+	php artisan route:list > route.txt
