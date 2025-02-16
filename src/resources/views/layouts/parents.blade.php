@@ -11,7 +11,7 @@
 
 <body>
     @include('components.header')
-    <div class="text-[#333333]">
+    <div class="text-main">
         @yield('content')
     </div>
     @include('components.footer')
