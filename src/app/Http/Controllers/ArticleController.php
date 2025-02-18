@@ -46,4 +46,12 @@ class ArticleController extends Controller
         // 処理後リダイレクト
         return redirect('/article');
     }
+
+    public function show($id) {
+        $article = Article::find($id);
+
+        return view('articles.show', [
+            'article' => $article
+        ]);
+    }
 }
