@@ -47,11 +47,43 @@ class ArticleController extends Controller
         return redirect('/article');
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $article = Article::find($id);
 
         return view('articles.show', [
             'article' => $article
         ]);
+    }
+
+    public function edit($id)
+    {
+        $article = Auth::user()->articles->find($id);
+
+        return view('articles.edit', [
+            'article' => $article
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|max:100',
+            'body' => 'required',
+            'is_published' => 'required|boolean'
+        ]);
+
+        $article = Auth::user()->articles->find($id);
+        $article->update($request->all());
+
+        return redirect()->route('article.show', $article)->with('success', '記事が更新されました。');
+    }
+
+    public function destroy($id)
+    {
+        $article = Auth::user()->articles->find($id);
+        $article->delete();
+
+        return redirect('/article')->with('success', '記事が削除されました。');
     }
 }

@@ -22,10 +22,18 @@
         <a href="{{ route('article.index') }}" class="text-primary hover:text-accent transition duration-300 ease-in-out">
             <i class="fas fa-arrow-left mr-2"></i>記事一覧に戻る
         </a>
-        <div>
-            <a href="#" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent transition duration-300 ease-in-out mr-2">編集</a>
-            <button type="submit" class="bg-accent text-white px-4 py-2 rounded-lg hover:bg-primary transition duration-300 ease-in-out">削除</button>
+
+        <div class="flex gap-2">
+            @if ($article->user == Auth::user())
+            <a href="{{ route('article.edit', $article->id) }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent transition duration-300 ease-in-out mr-2">編集</a>
+            <form action="{{ route('article.destroy', $article->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-accent text-white px-4 py-2 rounded-lg hover:bg-primary transition duration-300 ease-in-out" onclick="if(!confirm('本当に削除しますか？')){return false};">削除</button>
+            </form>
+            @endif
         </div>
+
     </div>
 </div>
 
