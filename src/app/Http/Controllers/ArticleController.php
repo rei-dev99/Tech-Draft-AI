@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,7 @@ class ArticleController extends Controller
     public function index(): View
     {
         $user = Auth::user(); // 認証済みユーザー情報取得
-        $articles = $user->articles; // 認証済みユーザーの記事取得
+        $articles = $user->articles()->paginate(20)->onEachSide(1); // 認証済みユーザーの記事取得
 
         return view('articles.index', [
             'articles' => $articles,
@@ -58,7 +59,7 @@ class ArticleController extends Controller
 
     public function edit($id)
     {
-        $article = Auth::user()->articles->find($id);
+        $article = Auth::user()->articles()->find($id);
 
         return view('articles.edit', [
             'article' => $article
@@ -73,7 +74,7 @@ class ArticleController extends Controller
             'is_published' => 'required|boolean'
         ]);
 
-        $article = Auth::user()->articles->find($id);
+        $article = Auth::user()->articles()->find($id);
         $article->update($request->all());
 
         return redirect()->route('article.show', $article)->with('success', '記事が更新されました。');
@@ -81,7 +82,7 @@ class ArticleController extends Controller
 
     public function destroy($id)
     {
-        $article = Auth::user()->articles->find($id);
+        $article = Auth::user()->articles()->find($id);
         $article->delete();
 
         return redirect('/article')->with('success', '記事が削除されました。');
